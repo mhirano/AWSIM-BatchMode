@@ -1,5 +1,5 @@
 import subprocess
-import bayes_util
+import util
 
 #### 自分の環境に合わせて変更 ↓ここから
 awsimProjectRootPath = "/home/mhirano/Documents/Projects/AWSIM" # AWSIMのディレクトリ
@@ -7,9 +7,11 @@ unityBinaryPath = "/home/mhirano/Unity/Hub/Editor/2021.1.7f1/Editor/Unity"
 #### 自分の環境に合わせて変更 ↑ここまで
 
 for i in range(5):
+    # In this example, camera height is the only variable changed during the loop.
     height = i
 
     # Create a unity script that changes camera parameters (position/angle/focalLength)
+    # You need to specify all the parameters.
     bayes_util.GenerateScriptToChangeParameter(
         awsimProjectRootPath,
         camera1_pos_x=225,
@@ -35,7 +37,8 @@ for i in range(5):
         camera3_focalLength=25
         )
 
-    # Build a unity player with the specified camera paraemters
+    # Build a player with the specified camera paraemters
+    # ref: https://docs.unity3d.com/ja/2018.4/Manual/CommandLineArguments.html
     commandToBuildPlayer = [ 
         unityBinaryPath,
         "-quit",
@@ -55,5 +58,5 @@ for i in range(5):
     ]
     subprocess.call(commandToRunPlayer)
 
-    # Reset script to its original 
+    # Reset script to its original contents
     bayes_util.ResetScriptToOriginalParameters(awsimProjectRootPath)

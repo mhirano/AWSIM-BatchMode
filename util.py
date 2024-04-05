@@ -1,8 +1,12 @@
 from pathlib import Path
 import shutil
 
+
+# テンプレートからカメラパラメータ変更スクリプト(ChangeCameraParameters.cs)を生成
 def GenerateScriptToChangeParameter(projectRootPath, **kwargs):
 
+    # 関数に渡される引数を解析し、変更後のパラメータを変数として保存
+    # カメラを追加したり、他のパラメータを変更したい場合はここに追加
     for k, v in kwargs.items():
         if k == 'camera1_pos_x':
             camera1_pos_x = v
@@ -48,19 +52,29 @@ def GenerateScriptToChangeParameter(projectRootPath, **kwargs):
             camera3_angle_z = v
         if k == 'camera3_focalLength':
             camera3_focalLength = v
-
-    template_path=Path('ChangeCameraParameters_template.cs')
+    
+    # C#スクリプトのテンプレートを指定
+    # position, angle, focalLengthあたりを編集可能にしていますが、
+    # 他のパラメータも変更したい場合は、適宜追加してください。
+    template_path=Path('ChangeCameraParameters_template.cs') 
+    
+    # GameObjectにアタッチされるC#スクリプトのパス
     script_path=projectRootPath / Path('Assets/AWSIM/Scripts/ChangeCameraParameters.cs')
 
+    # テンプレートを1行ずつ読み込み、編集後のスクリプトを保存
     fr = open(str(template_path),'r')
     fw = open(str(script_path), 'w')
     while True:
         line = fr.readline()
 
-        # Break if EOF
+        # テンプレートを全て読み終えたら終了
         if line == '':
             break
 
+        # 以下でテンプレートを1行ずつチェックして/** KEYWORD **/を探しだし、
+        # 文字列をreplaceしてスクリプトに出力していく
+        # 上部の引数解析と同様に、カメラを追加したり他のカメラパラメータを変更したい場合は、ここに追記してください。
+        
         # Camera1 parameters
         if line.find("CAMERA1_POSITION_X") != -1:
             line = line.replace("old_pos.x", str(camera1_pos_x))
@@ -177,6 +191,8 @@ def GenerateScriptToChangeParameter(projectRootPath, **kwargs):
     fr.close()
     fw.close()
 
+
+# カメラパラメータ変更スクリプト(ChangeCameraParameters.cs)をデフォルトに復元
 def ResetScriptToOriginalParameters(projectRootPath):
 
     template_path=Path('ChangeCameraParameters_template.cs')
