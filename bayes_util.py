@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 
 def GenerateScriptToChangeParameter(projectRootPath, **kwargs):
 
@@ -175,3 +176,13 @@ def GenerateScriptToChangeParameter(projectRootPath, **kwargs):
 
     fr.close()
     fw.close()
+
+def ResetScriptToOriginalParameters(projectRootPath):
+
+    template_path=Path('ChangeCameraParameters_template.cs')
+    script_path=projectRootPath / Path('Assets/AWSIM/Scripts/ChangeCameraParameters.cs')
+
+    shutil.copy(template_path, script_path);
+
+
+    print("Reset parameter completed.")

@@ -55,4 +55,5 @@ for i in range(5):
     ]
     subprocess.call(commandToRunPlayer)
 
-
+    # Reset script to its original 
+    bayes_util.ResetScriptToOriginalParameters(awsimProjectRootPath)
