@@ -51,7 +51,7 @@ for i in range(5):
         "-executeMethod",
         "BuildPlayer.MyBuild",
         "-projectPath",
-        "/home/mhirano/Documents/Projects/AWSIM"
+        awsimProjectRootPath
         ]
     subprocess.call(commandToBuildPlayer)
     print("Done.")
