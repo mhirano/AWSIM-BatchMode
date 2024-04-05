@@ -199,6 +199,3 @@ def ResetScriptToOriginalParameters(projectRootPath):
     script_path=projectRootPath / Path('Assets/AWSIM/Scripts/ChangeCameraParameters.cs')
 
     shutil.copy(template_path, script_path);
-
-
-    print("Reset parameter completed.")

@@ -12,6 +12,7 @@ for i in range(5):
 
     # Create a unity script that changes camera parameters (position/angle/focalLength)
     # You need to specify all the parameters.
+    print("Generating camera parameter script...")
     util.GenerateScriptToChangeParameter(
         awsimProjectRootPath,
         camera1_pos_x=225,
@@ -36,9 +37,11 @@ for i in range(5):
         camera3_angle_z=0,
         camera3_focalLength=25
         )
+    print("Done.")
 
     # Build a player with the specified camera paraemters
     # ref: https://docs.unity3d.com/ja/2018.4/Manual/CommandLineArguments.html
+    print("Building player...")
     commandToBuildPlayer = [ 
         unityBinaryPath,
         "-quit",
@@ -51,12 +54,21 @@ for i in range(5):
         "/home/mhirano/Documents/Projects/AWSIM"
         ]
     subprocess.call(commandToBuildPlayer)
+    print("Done.")
 
     # Run the built player
+    print("Running player...")
     commandToRunPlayer =[
         awsimProjectRootPath+"/Linux/Player"
     ]
     subprocess.call(commandToRunPlayer)
+    print("Done.")
 
     # Reset script to its original contents
+    print("Resetting camera parameter script...")
     util.ResetScriptToOriginalParameters(awsimProjectRootPath)
+    print("Done.")
+
+
+
+
