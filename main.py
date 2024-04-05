@@ -12,7 +12,7 @@ for i in range(5):
 
     # Create a unity script that changes camera parameters (position/angle/focalLength)
     # You need to specify all the parameters.
-    bayes_util.GenerateScriptToChangeParameter(
+    util.GenerateScriptToChangeParameter(
         awsimProjectRootPath,
         camera1_pos_x=225,
         camera1_pos_y=height,
@@ -42,7 +42,7 @@ for i in range(5):
     commandToBuildPlayer = [ 
         unityBinaryPath,
         "-quit",
-        "-batchmode",
+        # "-batchmode",
         "-buildTarget", 
         "Linux64",
         "-executeMethod",
@@ -59,4 +59,4 @@ for i in range(5):
     subprocess.call(commandToRunPlayer)
 
     # Reset script to its original contents
-    bayes_util.ResetScriptToOriginalParameters(awsimProjectRootPath)
+    util.ResetScriptToOriginalParameters(awsimProjectRootPath)
