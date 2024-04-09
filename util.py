@@ -1,6 +1,34 @@
 from pathlib import Path
 import shutil
 
+def GenerateScriptToSetExportDirectory(projectRootPath, new_name: str):
+    template_path=Path('ScreenshotHandler_template.cs')
+    script_path=projectRootPath / Path('Assets/AWSIM/Scripts/ScreenshotHandler.cs')
+
+    # テンプレートを1行ずつ読み込み、編集後のスクリプトを保存
+    fr = open(str(template_path),'r')
+    fw = open(str(script_path), 'w')
+    while True:
+        line = fr.readline()
+
+        # テンプレートを全て読み終えたら終了
+        if line == '':
+            break
+
+        # Export directoryを設定
+        if line.find("RENDERING_EXPORT_DIRECTORY") != -1:
+            line = line.replace("DEFAULT_DIRECTORY", new_name)
+            print(line, file=fw, end='')
+            continue
+
+        print(line, file=fw, end='')
+
+
+    fr.close()
+    fw.close()
+
+
+
 
 # テンプレートからカメラパラメータ変更スクリプト(ChangeCameraParameters.cs)を生成
 def GenerateScriptToChangeParameter(projectRootPath, **kwargs):
@@ -193,9 +221,15 @@ def GenerateScriptToChangeParameter(projectRootPath, **kwargs):
 
 
 # カメラパラメータ変更スクリプト(ChangeCameraParameters.cs)をデフォルトに復元
-def ResetScriptToOriginalParameters(projectRootPath):
+def ResetScripts(projectRootPath):
 
     template_path=Path('ChangeCameraParameters_template.cs')
     script_path=projectRootPath / Path('Assets/AWSIM/Scripts/ChangeCameraParameters.cs')
 
     shutil.copy(template_path, script_path);
+
+    template_path=Path('ScreenshotHandler_template.cs')
+    script_path=projectRootPath / Path('Assets/AWSIM/Scripts/ScreenshotHandler.cs')
+
+    shutil.copy(template_path, script_path);
+

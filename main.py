@@ -10,6 +10,9 @@ for i in range(5):
     # In this example, camera height is the only variable changed during the loop.
     height = i
 
+    # Set export directory
+    util.GenerateScriptToSetExportDirectory( awsimProjectRootPath, "trial_"+str(i))
+
     # Create a unity script that changes camera parameters (position/angle/focalLength)
     # You need to specify all the parameters.
     print("Generating camera parameter script...")
@@ -65,8 +68,8 @@ for i in range(5):
     print("Done.")
 
     # Reset script to its original contents
-    print("Resetting camera parameter script...")
-    util.ResetScriptToOriginalParameters(awsimProjectRootPath)
+    print("Resetting scripts...")
+    util.ResetScripts(awsimProjectRootPath)
     print("Done.")
 
 
