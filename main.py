@@ -48,7 +48,7 @@ for i in range(5):
     commandToBuildPlayer = [ 
         unityBinaryPath,
         "-quit",
-        # "-batchmode",
+        "-batchmode",
         "-buildTarget", 
         "Linux64",
         "-executeMethod",
